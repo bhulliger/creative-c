@@ -1,0 +1,19 @@
+<ion-navbar *navbar>
+	<button menuToggle>
+		<ion-icon name="menu"></ion-icon>
+	</button>
+	<ion-title>Tagcloud: Vorschau</ion-title>
+</ion-navbar>
+
+<ion-content>
+
+<div>
+<canvas id="canvas" style="border: 1px solid black"> </canvas>
+
+</div>
+
+<button full (click)="render()">Neu Anordnen</button>
+
+<button full (click)="onOrder()">Bestellen</button>
+<canvas id="tmp"> </canvas>
+</ion-content>

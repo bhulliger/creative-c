@@ -1,0 +1,15 @@
+ion-content {
+	background: color($colors, bg);
+}
+
+.toolbar-title {
+	color: color($colors, primary);
+}
+
+.toolbar-background {
+	background: color($colors, toolbar-bg);
+}
+
+#ion-item {
+	background: color($colors, bg);
+}

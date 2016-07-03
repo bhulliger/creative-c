@@ -1,0 +1,23 @@
+<ion-navbar *navbar>
+	<button menuToggle>
+		<ion-icon name="menu"></ion-icon>
+	</button>
+	<ion-title>Creative-C</ion-title>
+</ion-navbar>
+
+<ion-content id="welcome">
+
+
+<ion-card *ngFor="let template of templates" (click)="templateTapped($event, template)">
+  <ion-card-header>{{template.title}}</ion-card-header>
+
+  <ion-card-content>
+    <img src="{{template.img}}" width="100%" />
+    <p>
+    {{template.description}}
+    </p>
+    <button>Ich will auch so einen!</button>
+  </ion-card-content>
+</ion-card>
+
+</ion-content>

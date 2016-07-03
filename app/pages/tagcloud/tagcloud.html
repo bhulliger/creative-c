@@ -1,0 +1,42 @@
+<ion-navbar *navbar>
+	<button menuToggle>
+		<ion-icon name="menu"></ion-icon>
+	</button>
+	<ion-title>Tagcloud</ion-title>
+</ion-navbar>
+
+<ion-content>
+	<ion-list>
+
+		<ion-item>
+			<!--Basic: auto-select the icon based on the platform -->
+			<h3>Bitte gibt die Wörter für deinen Ring ein</h3>
+			<ion-icon name="information-circle" item-left large></ion-icon>
+			<p>Für einen Ring mit 
+				<strong>Grösse {{ringSize}} </strong> und 
+				<strong>Breite {{ringWidth}}mm </strong><br/>
+				brauchst du ca. 50 Wörter.
+			</p>
+		</ion-item>
+	</ion-list>
+
+	<ion-list>
+		<ion-item>
+			<ion-input type="text" [(ngModel)]="currentWord" placeholder="Tagcloud Wort"></ion-input>
+
+		</ion-item>
+		<ion-item>
+			<button (click)="addWord()" [disabled]="currentWord === ''"><ion-icon name="add-circle"></ion-icon>Hinzufügen</button>
+		</ion-item>
+
+
+	</ion-list>
+
+	
+	<div id="tagcloud">
+		<button round small *ngFor="let word of words" (click)="delete(word)">{{word}}<ion-icon name="close"  item-right></ion-icon></button>
+	</div>
+
+	<button full (click)="onContinue()">Weiter</button>
+
+</ion-content>
