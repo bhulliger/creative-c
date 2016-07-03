@@ -13,13 +13,13 @@ export class PreviewPage {
 
 	words: string[];
 	unrenderedWords: string[];
-	fonts: string[] = ['8pt Helvetica', '10pt Helvetica', '12pt Helvetica', '13pt Helvetica'];
+	fonts: string[] = ['10pt Helvetica', '11pt Helvetica', '12pt Helvetica', '14pt Helvetica'];
 	styles: string[] = ['', 'bold'];
 	canvasHeight: number;
 	canvasWidth: number;
-	lineHeight: number = 17;
-	minSpace: number = 2;
-	pxPerMm: number = 23; //assumed number of px per mm
+	lineHeight: number = 18;
+	minSpace: number = 1;
+	pxPerMm: number = 12; //assumed number of px per mm
 
 	constructor(private nav: NavController, navParams: NavParams) {
 		this.ringSize = navParams.get('ringSize');
@@ -51,7 +51,6 @@ export class PreviewPage {
 		var columns = Math.floor(tmpColumns);
 		// calculate real space between columns
 		var spaceX = this.minSpace + (tmpColumns - columns) / (columns + 1);
-
 
 		// rasterize canvas *************************************************
 		var raster = [];
@@ -119,7 +118,7 @@ export class PreviewPage {
 			}
 
 			// print word **********************************
-			tmpCtx.clearRect(0,0,100,100);
+			tmpCtx.clearRect(0,0,this.canvasWidth,this.canvasHeight);
 			if (degrees === 0 || degrees === 180) {
 				var maxWidth = numberOfTiles * this.lineHeight + (numberOfTiles - 1) * spaceX;
 			} else if (degrees === 90 || degrees === 270) {
@@ -132,11 +131,11 @@ export class PreviewPage {
 				case 0:
 					tmpCtx.translate(0,0);
 					break;
-				case 180:
-					tmpCtx.translate(maxWidth, this.lineHeight);
-					break;
 				case 90:
 					tmpCtx.translate(this.lineHeight, 0);
+					break;
+				case 180:
+					tmpCtx.translate(maxWidth, this.lineHeight);
 					break;
 				case 270:
 					tmpCtx.translate(0, maxWidth);
@@ -159,45 +158,69 @@ export class PreviewPage {
 			ctx.globalCompositeOperation = 'source-over';
 			ctx.drawImage(tmp, tileX * this.lineHeight + tileX * spaceX + spaceX, tileY * this.lineHeight * spaceY + spaceY);
 
+			tmpCtx.clearRect(0, 0, this.canvasWidth, this.canvasHeight);
+
 			// update raster *******************************
 			// horizontal orientation
+			
 			if (degrees === 0 || degrees === 180) {
 				// 1. update the 'W'-value of all tiles east of tileX
 				for (var x = 0; x < tileX; x++) {
 					if (raster[x][tileY] !== undefined) {
-						raster[x][tileY]['W'] = tileX - x;
+						raster[x][tileY]['W'] = raster[x][tileY]['W'] = Math.min(raster[x][y]['W'], tileX - x);
 					}
 				}
 				// 2. set all occupied tiles to undefined
-				for (var x = 0; x < tileX + numberOfTiles; x++) {
-					raster[x][tileX] = undefined;
-
+				for (var x = tileX; x < tileX + numberOfTiles; x++) {
+					raster[x][tileY] = undefined;
+					
 					// 3. update the 'S'-value of all tiles north of the tile
 					for (var y = 0; y < tileY; y++) {
 						if (raster[x][y] !== undefined) {
-							raster[x][y]['S'] = tileY - y;
+							raster[x][y]['S'] = Math.min(raster[x][y]['S'], tileY - y);
+						}
+					}
+				}
+			} else if (degrees === 90 || degrees === 270) {
+				// 1. update the 'S'-value of all tiles north of tileY
+				for (var y = 0; y < tileY; y++) {
+					if (raster[tileX][y] !== undefined) {
+						raster[tileX][y]['S'] = Math.min(raster[tileX][y]['S'], tileY - y);
+						
+					}
+				}
+				// 2. set all occupied tiles to undefined
+				for (var y = tileY; y < tileY + numberOfTiles; y++) {
+					raster[tileX][y] = undefined;
+					
+					// 3. update the 'W'-value of all tiles east of the tile
+					for (var x = 0; x < tileX; x++) {
+						if (raster[x][y] !== undefined) {
+							raster[x][y]['W'] = Math.min(raster[x][y]['W'], tileX - x);
 						}
 					}
 				}
 			}
 		}
-/*
+
 		// fill empty tiles with black lines **********************************************
 		for (var x = 0; x < raster.length; x++) {
 			for (var y = 0; y < raster[x].length; y++) {
-				if (raster[x][y]['W'] > 0) {
+				if (raster[x][y] !== undefined && raster[x][y]['W'] > 0) {
 					// draw horizontal line
 					var freeTiles = raster[x][y]['W'];
 					var length = freeTiles * this.lineHeight + (freeTiles - 1) * spaceX;
 					ctx.fillRect(x * this.lineHeight + x * spaceX + this.lineHeight / 2, y * this.lineHeight + y * spaceY + this.lineHeight / 2, length, this.lineHeight / 4);
-				} else if (raster[x][y]['S'] > 0) {
+				} else if (raster[x][y] !== undefined && raster[x][y]['S'] > 0) {
 					// draw vertical line
 					var freeTiles = raster[x][y]['S'];
 					var length = freeTiles * this.lineHeight + (freeTiles - 1) * spaceY;
 					ctx.fillRect(x * this.lineHeight + x * spaceX + this.lineHeight / 2, y * this.lineHeight + y * spaceY + this.lineHeight / 2, this.lineHeight / 4, length);
 				}
 			}
-		}*/
+		}
+
+		
 
 		console.log('done rendering');
 }
