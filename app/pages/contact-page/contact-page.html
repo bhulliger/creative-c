@@ -1,20 +1,55 @@
-
 <ion-navbar *navbar>
+  <button menuToggle>
+    <ion-icon name="menu"></ion-icon>
+  </button>
   <ion-title>
-    Contact
+    Kontakt
   </ion-title>
 </ion-navbar>
 
 <ion-content>
+
   <ion-list>
-    <ion-list-header class="contact-page-content">Follow us on Twitter</ion-list-header>
+    <ion-list-header>
+      Adresse
+    </ion-list-header>
     <ion-item>
-      <ion-icon name="ionic" item-left class="contact-page-content"></ion-icon>
-      @ionicframework
-    </ion-item>
-    <ion-item>
-      <ion-icon name="ionitron" item-left class="contact-page-content"></ion-icon>
-      @ionitron
-    </ion-item>
-  </ion-list>
-</ion-content>
+      Kyburgstrasse 12, 3000 Bern
+      <a target="_blank" item-right href="https://www.google.ch/maps/place/Kyburgstrasse+12,+3013+Bern/@46.956771,7.4464622,17z/data=!3m1!4b1!4m5!3m4!1s0x478e39eb92f43fa3:0xf832a74815a6b785!8m2!3d46.9567674!4d7.4486562?hl=de">
+        <ion-icon name="navigate"></ion-icon></a>
+      </ion-item>
+      <ion-list-header>
+        Telefonnummer
+      </ion-list-header>
+      <ion-item>
+        <ion-icon name="call"></ion-icon>
+        +41 79 720 71 01
+      </ion-item>
+      <ion-list-header>
+        Social Media
+      </ion-list-header>
+      <ion-item>
+        <ion-icon name="logo-twitter"></ion-icon>
+        Twitter
+        <ion-note item-right>
+          <a href="https://twitter.com/creativeC_ch">@creativeC_ch</a>
+        </ion-note>
+      </ion-item>
+      <ion-item>
+        <ion-icon name="logo-instagram"></ion-icon>
+        Instagram
+        <ion-note item-right>
+          <a target="_blank" href="https://www.instagram.com/creative___c">creative___c</a>
+        </ion-note>
+      </ion-item>
+      <ion-item>
+        <ion-icon name="logo-facebook"></ion-icon>
+        Facebook
+        <ion-note item-right>
+        <a target="_blank" href="https://www.facebook.com/corinne.hulliger">corinne.hulliger</a>
+        </ion-note>
+      </ion-item>
+    </ion-list>
+
+
+  </ion-content>

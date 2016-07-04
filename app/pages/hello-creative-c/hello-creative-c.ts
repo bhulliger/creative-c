@@ -11,13 +11,13 @@ import {GenericRingParameterPage} from '../generic-ring-parameter/generic-ring-p
 export class HelloCreativeCPage {
 
 	selectedTemplate: any;
-	templates: Array<{uid: string, title: string, img: string, description: string}>;
+	templates: Array<{uid: string, title: string, img: string, description: string, price: string}>;
 
 	constructor(private nav: NavController, navParams: NavParams) {
 
 		this.templates = [];
-		this.templates.push({ uid: 'tagcloud', title: 'Ring Tagcloud', img: 'img/tagcloud.png', description: 'Lorem ipsum dolor sit amet'});
-		this.templates.push({ uid: 'recipe', title: 'Drink Rezept', img: 'img/tagcloud.png', description: 'Lorem ipsum dolor sit amet'});
+		this.templates.push({ uid: 'tagcloud', title: 'Ring Tagcloud', img: 'img/tagcloud.png', description: 'Silberring mit eigens kreierter Tagcloud. Garantiert ein Unikat.', price: 'CHF 225.-'});
+		// this.templates.push({ uid: 'recipe', title: 'Drink Rezept', img: 'img/tagcloud.png', description: 'Lorem ipsum dolor sit amet'});
 
 	}
 

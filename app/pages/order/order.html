@@ -1,0 +1,52 @@
+<ion-navbar *navbar>
+	<button menuToggle>
+		<ion-icon name="menu"></ion-icon>
+	</button>
+	<ion-title>Bestellung</ion-title>
+</ion-navbar>
+
+<ion-content>
+
+	<ion-list>
+		<!-- rendered img -->
+		<ion-item>
+		<img id="preview" src="{{dataUrl}}" />
+		</ion-item>
+
+		<ion-item>
+			<ion-label>Vorname</ion-label>
+			<ion-input type="text" [(ngModel)]="person.firstname"></ion-input>
+		</ion-item>
+		<ion-item>
+			<ion-label>Nachname</ion-label>
+			<ion-input type="text" [(ngModel)]="person.lastname"></ion-input>
+		</ion-item>
+		<ion-item>
+			<ion-label>Strasse</ion-label>
+			<ion-input type="text" [(ngModel)]="person.address"></ion-input>
+		</ion-item>
+		<ion-item>
+			<ion-label>PLZ</ion-label>
+			<ion-input type="text" [(ngModel)]="person.zip"></ion-input>
+		</ion-item>
+		<ion-item>
+			<ion-label>Ort</ion-label>
+			<ion-input type="text" [(ngModel)]="person.city"></ion-input>
+		</ion-item>
+		<ion-item>
+			<ion-label>Telefonnummer</ion-label>
+			<ion-input type="text" [(ngModel)]="person.phone"></ion-input>
+		</ion-item>
+
+		<ion-item text-wrap>
+			<ion-icon name="information-circle" item-left large></ion-icon>
+			<p>
+			Ich werde mich in den nächsten Tagen bei dir melden für deine Bestellung!
+			</p>
+		</ion-item>
+
+	</ion-list>
+
+<button full (click)="onSend()">Anfrage abschicken</button>
+
+</ion-content>

@@ -7,9 +7,21 @@
 
 <ion-content>
 
-<div>
-<canvas id="canvas" style="border: 1px solid black"> </canvas>
-</div>
+<ion-list>
+<!-- rendered canvas -->
+<ion-item>
+<canvas id="canvas" style="margin: 1em; border: 1px solid #ccc"> </canvas>
+</ion-item>
+
+<!-- information -->
+<ion-item text-wrap [hidden]="unrenderedWords.length === 0">
+<ion-icon name="alert" item-left large></ion-icon>
+<h2>Folgende Wörter wurden <strong>nicht</strong> gedruckt</h2>
+<p>
+<label *ngFor="let unrenderedWord of unrenderedWords">{{unrenderedWord}}&nbsp; </label>
+</p>
+</ion-item>
+</ion-list>
 
 <button full (click)="render()">Neu Anordnen</button>
 

@@ -2,6 +2,8 @@ import {Component} from '@angular/core';
 
 import {NavController, NavParams} from 'ionic-angular';
 
+import {OrderPage} from '../order/order';
+
 @Component({
 	templateUrl: "build/pages/preview/preview.html"
 })
@@ -18,7 +20,7 @@ export class PreviewPage {
 	canvasHeight: number;
 	canvasWidth: number;
 	lineHeight: number = 18;
-	minSpace: number = 1;
+	minSpace: number = 1.1;
 	pxPerMm: number = 12; //assumed number of px per mm
 
 	constructor(private nav: NavController, navParams: NavParams) {
@@ -33,10 +35,15 @@ export class PreviewPage {
 
 	onOrder() {
 
+		// save image as dataUrl
+		var canvas: any = document.getElementById('canvas');
+		var dataUrl = canvas.toDataURL();
+
+		this.nav.push(OrderPage, {dataUrl: dataUrl});
 	}
 
 	render() {
-		console.log('rendering new');
+		this.unrenderedWords = [];
 
 		// calculate size of canvas, rows and columns ***********************
 		// number of rows. divide rest to inbetweens
@@ -84,8 +91,8 @@ export class PreviewPage {
 
 			// search for first tile that has at least <numberOfTiles> free neighbors
 			var tile;
-			var tileX = 0;
-			var tileY = 0;
+			var tileX = undefined;
+			var tileY = undefined;
 
 			tile: for(var x = 0; x < columns; x++) {
 				for (var y = 0; y < rows; y++) {
@@ -99,6 +106,14 @@ export class PreviewPage {
 					}
 				}
 			}
+
+			if (tileX === undefined || tileY === undefined) {
+				console.log('no free tile for word: ' + word);
+				this.unrenderedWords.push(word);
+				continue;
+			}
+
+
 
 			// check rotation *****************************
 			var degrees = 0;
@@ -116,6 +131,8 @@ export class PreviewPage {
 				this.unrenderedWords.push(word);
 				continue;
 			}
+
+			console.log('word=' + word + '; tile=('+tileX+'/'+tileY+'); orientation=' + degrees + ';tiles='+numberOfTiles);
 
 			// print word **********************************
 			tmpCtx.clearRect(0,0,this.canvasWidth,this.canvasHeight);

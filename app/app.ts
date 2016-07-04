@@ -3,7 +3,8 @@ import {Platform, ionicBootstrap, MenuController, Nav} from 'ionic-angular';
 import {StatusBar} from 'ionic-native';
 
 import {HelloCreativeCPage} from './pages/hello-creative-c/hello-creative-c';
-import {GenericRingParameterPage} from './pages/generic-ring-parameter/generic-ring-parameter';
+import {AboutPage} from './pages/about-page/about-page';
+import {ContactPage} from './pages/contact-page/contact-page';
  
 
 @Component({
@@ -22,7 +23,8 @@ export class MyApp {
     // set our app's pages
     this.pages = [
     	{ title: 'Creative-C', component: HelloCreativeCPage },
-      { title: 'Ring Parameter', component: GenericRingParameterPage }
+      { title: 'Über mich', component: AboutPage },
+      { title: 'Kontakt', component: ContactPage }
     ];
   }
 
